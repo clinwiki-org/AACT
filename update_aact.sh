@@ -1,5 +1,7 @@
 #!/bin/bash
 
+cd "$(dirname "$0")"
+
 # Download the latest snapshot
 ./download_aact_snapshot.sh
 
