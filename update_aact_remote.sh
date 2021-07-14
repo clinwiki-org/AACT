@@ -17,4 +17,5 @@ source .env
 
 docker run --rm -it -v .:/work -w /work postgres:$PGVERSION ./apply_snapshot_remote.sh clinical_trials.zip $PGHOST $PGPORT $PGUSER $PGDATABASE $PGPASSWORD $TEMP_SCHEMA
 
-# execute inside docker
+./reload_hasura_metadata.sh $HASURA_SECRET $HASURA_HOST
+
