@@ -2,3 +2,5 @@ log.txt
 temp
 clinical_trials.zip
 snapshot_temp
+.env
+temp.sh
