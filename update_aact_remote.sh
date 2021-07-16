@@ -15,6 +15,7 @@ fi
 
 # unzip into temp
 WORK=snapshot_temp
+rm -rf $WORK
 mkdir -p $WORK
 unzip clinical_trials.zip -d $WORK
 
