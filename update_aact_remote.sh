@@ -13,9 +13,15 @@ else
    exit
 fi
 
+# unzip into temp
+WORK=snapshot_temp
+mkdir -p $WORK
+unzip clinical_trials.zip -d $WORK
+
 source .env
 
-docker run --rm -it -v $PWD:/work -w /work postgres:$PGVERSION ./apply_snapshot_remote.sh clinical_trials.zip $PGHOST $PGPORT $PGUSER $PGDATABASE $PGPASSWORD $TEMP_SCHEMA
+docker run --rm -it -v $PWD:/work -w /work postgres:$PGVERSION ./apply_snapshot_remote.sh $WORK/postgres_data.dmp $PGHOST $PGPORT $PGUSER $PGDATABASE $PGPASSWORD $TEMP_SCHEMA
 
-./reload_hasura_metadata.sh $HASURA_SECRET $HASURA_HOST
+# rm -rf $WORK
+#./reload_hasura_metadata.sh $HASURA_SECRET $HASURA_HOST
 

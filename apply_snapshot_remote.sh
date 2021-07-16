@@ -10,7 +10,7 @@ PGDATABASE=$5
 export PGPASSWORD=$6
 TEMP_SCHEMA=$7
 
-if [ ! $# -eq 6 ]
+if [ ! $# -eq 7 ]
 then
     echo "Usage: <filename> <host> <port> <user> <password> <temp_schema>"
     exit
@@ -21,9 +21,8 @@ if [ ! -f "/.dockerenv" ]; then
     exit
 fi
 
-set -e
-echo "CREATE SCHEMA $TEMP_SCHEMA;" | psql -h $PGHOST -U $PGUSER -d clinwiki -p $PGPORT -w
+echo "CREATE SCHEMA $TEMP_SCHEMA;" | psql -h $PGHOST -U $PGUSER -d $PGDATABASE -p $PGPORT -w
 pg_restore --exit-on-error -v --no-owner --no-acl -h $PGHOST -U $PGUSER -p $PGPORT -w -d $PGDATABASE -n $TEMP_SCHEMA $FILENAME
-echo "DROP SCHEMA ctgov CASCADE;" | psql -h $PGHOST -U $PGUSER -d clinwiki -p $PGPORT -w
-echo "ALTER SCHEMA $TEMP_SCHEMA RENAME TO ctgov;"| psql -h $PGHOST -U $PGUSER -d clinwiki -p $PGPORT -w
+echo "DROP SCHEMA ctgov CASCADE;" | psql -h $PGHOST -U $PGUSER -d $PGDATABASE -p $PGPORT -w
+echo "ALTER SCHEMA $TEMP_SCHEMA RENAME TO ctgov;"| psql -h $PGHOST -U $PGUSER -d $PGDATABASE -p $PGPORT -w
 
