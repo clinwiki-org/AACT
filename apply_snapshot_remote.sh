@@ -1,11 +1,11 @@
 #!/bin/bash
 
 FILENAME=$1
-
 PGHOST=$2
 PGPORT=$3
 PGUSER=$4
 PGDATABASE=$5
+
 # export PGPASSWORD works with -w
 export PGPASSWORD=$6
 FINAL_SCHEMA=$7
@@ -21,11 +21,11 @@ if [ ! -f "/.dockerenv" ]; then
     exit
 fi
 
-# todo: -n ctgov restores everything *except* ctgov
-# suggest to willy/ctd that we use something else
+run_sql() {
+    echo $1 | psql -h $PGHOST -U $PGUSER -d $PGDATABASE -p $PGPORT -w
+}
 
-echo "DROP SCHEMA IF EXISTS ctgov CASCADE; CREATE SCHEMA ctgov;" | psql -h $PGHOST -U $PGUSER -d $PGDATABASE -p $PGPORT -w
+#run_sql "DROP SCHEMA IF EXISTS $TEMP_SCHEMA; ALTER SCHEMA ctgov RENAME TO $TEMP_SCHEMA;"
+run_sql "DROP SCHEMA IF EXISTS ctgov CASCADE; CREATE SCHEMA ctgov;"
 pg_restore --exit-on-error -v --no-owner --no-acl -h $PGHOST -U $PGUSER -p $PGPORT -w -d $PGDATABASE -n ctgov $FILENAME
-#echo "DROP SCHEMA ctgov CASCADE;" | psql -h $PGHOST -U $PGUSER -d $PGDATABASE -p $PGPORT -w
-#echo "ALTER SCHEMA $TEMP_SCHEMA RENAME TO ctgov;"| psql -h $PGHOST -U $PGUSER -d $PGDATABASE -p $PGPORT -w
 
