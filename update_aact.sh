@@ -21,7 +21,7 @@ unzip clinical_trials.zip -d $WORK
 
 source .env
 
-docker run --rm -it -v $PWD:/work -w /work postgres:$PGVERSION ./apply_snapshot_remote.sh $WORK/postgres_data.dmp $PGHOST $PGPORT $PGUSER $PGDATABASE $PGPASSWORD $FINAL_SCHEMA
+docker run --rm -it -v $PWD:/work -w /work postgres:$PGVERSION ./apply_snapshot.sh $WORK/postgres_data.dmp $PGHOST $PGPORT $PGUSER $PGDATABASE $PGPASS $FINAL_SCHEMA
 
 rm -rf $WORK
 ./reload_hasura_metadata.sh $HASURA_SECRET $HASURA_HOST

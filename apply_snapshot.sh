@@ -12,7 +12,7 @@ FINAL_SCHEMA=$7
 
 if [ ! $# -eq 7 ]
 then
-    echo "Usage: <filename> <host> <port> <user> <password> <temp_schema>"
+    echo "Usage: <filename> <host> <port> <user> <database> <password> <temp_schema>"
     exit
 fi
 
