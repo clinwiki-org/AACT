@@ -25,7 +25,7 @@ run_sql() {
     echo $1 | psql -h $PGHOST -U $PGUSER -d $PGDATABASE -p $PGPORT -w
 }
 
-run_sql "DROP SCHEMA IF EXISTS $FINAL_SCHEMA; ALTER SCHEMA ctgov RENAME TO $FINAL_SCHEMA;"
+run_sql "DROP SCHEMA IF EXISTS $FINAL_SCHEMA CASCADE; ALTER SCHEMA ctgov RENAME TO $FINAL_SCHEMA;"
 run_sql "DROP SCHEMA IF EXISTS ctgov CASCADE; CREATE SCHEMA ctgov;"
 pg_restore --exit-on-error -v --no-owner --no-acl -h $PGHOST -U $PGUSER -p $PGPORT -w -d $PGDATABASE -n ctgov $FILENAME
 
