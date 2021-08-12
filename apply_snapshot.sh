@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source log.sh
+
 FILENAME=$1
 PGHOST=$2
 PGPORT=$3
@@ -12,16 +14,19 @@ FINAL_SCHEMA=$7
 
 if [ ! $# -eq 7 ]
 then
+    log "Usage: <filename> <host> <port> <user> <database> <password> <final_schema>"
     echo "Usage: <filename> <host> <port> <user> <database> <password> <final_schema>"
     exit
 fi
 
 if [ ! -f "/.dockerenv" ]; then
+    log "This script should be run inside the postgres docker."
     echo "This script should be run inside the postgres docker."
     exit
 fi
 
 run_sql() {
+		log info Running sql "$1"
     echo $1 | psql -h $PGHOST -U $PGUSER -d $PGDATABASE -p $PGPORT -w
 }
 

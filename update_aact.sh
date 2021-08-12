@@ -26,7 +26,8 @@ unzip clinical_trials.zip -d $WORK
 source .env
 
 log info Applying snapshot...
-docker run --rm -it -v $PWD:/work -w /work postgres:$PGVERSION ./apply_snapshot.sh $WORK/postgres_data.dmp $PGHOST $PGPORT $PGUSER $PGDATABASE $PGPASS $FINAL_SCHEMA
+docker run --rm -v $PWD:/work -w /work postgres:$PGVERSION ./apply_snapshot.sh $WORK/postgres_data.dmp $PGHOST $PGPORT $PGUSER $PGDATABASE $PGPASS $FINAL_SCHEMA
+log info Done applying snapshot.
 
 rm -rf $WORK
 log info Loading metadata...
