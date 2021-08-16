@@ -31,5 +31,5 @@ log info Done applying snapshot.
 
 rm -rf $WORK
 log info Loading metadata...
-./reload_hasura_metadata.sh $HASURA_SECRET $HASURA_HOST
+log info $(./reload_hasura_metadata.sh)
 
