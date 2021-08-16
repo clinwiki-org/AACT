@@ -30,6 +30,8 @@ docker run --rm -v $PWD:/work -w /work postgres:$PGVERSION ./apply_snapshot.sh $
 log info Done applying snapshot.
 
 rm -rf $WORK
-log info Loading metadata...
-log info $(./reload_hasura_metadata.sh)
+if [[ ! -z "$HASURA_USER" ]]; then
+	log info Loading metadata...
+	log info $(./reload_hasura_metadata.sh)
+fi
 
