@@ -6,3 +6,4 @@ snapshot_temp
 temp.sh
 test.sh
 aact.log
+*.csv
