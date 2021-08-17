@@ -7,8 +7,8 @@ source .env
 
 if [ ! -f "/.dockerenv" ]; then
   log what "Re-runnng inside docker"
-	docker run --rm -v $PWD:/work -w /work postgres:$PGVERSION ./whatchanged.sh
-	exit
+  docker run --rm -v $PWD:/work -w /work postgres:$PGVERSION ./whatchanged.sh
+  exit
 fi
 
 export PGPASSWORD=$PGPASS
