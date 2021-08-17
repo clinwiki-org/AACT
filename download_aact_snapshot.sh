@@ -7,6 +7,8 @@ if [ -z "$BASE_URL" ]; then
     BASE_URL=https://aact.ctti-clinicaltrials.org/static/static_db_copies/daily
 fi
 
+source log.sh
+
 # Start with today and go back up to 4 days to find a valid zip file
 DATES=(
     $(date -d "today" +"%Y%m%d")
@@ -21,6 +23,7 @@ echo $URL
 RES=$(curl -k -w "%{http_code}" -o clinical_trials.zip $URL)
 if [ $RES == "200" ]
 then 
+log info Downloaded $URL
 echo SUCCESS
 break;
 fi
